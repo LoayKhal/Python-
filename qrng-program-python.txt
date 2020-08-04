@@ -1,0 +1,71 @@
+from qiskit import QuantumCircuit
+from qiskit import Aer, execute
+
+#Prompt user with display
+print("Your choices are A, B, C, D")
+print( "A)  Quantum Coin (Heads or Tails)") #1qubit
+print( "B)  Quantum Tetrahedron (1-4)")     #2qubit
+print( "C)  Quantum Octahedron ( 1-8)")     #3qubit
+print( "D)  Quantum Gyroelongated Square Dipyramid (1-16)") #4 qubit
+
+x = input("Please type the letter of the QRNG you want to roll")
+
+if (x.isalpha()==0):
+	print("Your choice was not a letter, please run QRNG again")
+	pass
+
+if (x!="A" and x!="a" and x!="B" and x!="b" and x!="C" and x!="c" and x!="D" and x!="d"):
+	print(x, "did not match choices: A,B,C,D, please run QRNG again")
+	pass
+
+# A - Quantum Coin
+if (x=="A" or x=="a"):
+	circ = QuantumCircuit(1,1) #creates 1 qubit and 1 classic register
+	circ.h(0); #hadamard on qubit[0]
+	circ.measure([0],[0])
+	backend_sim = Aer.get_backend('qasm_simulator')
+	sim = execute(circ, backend_sim, shots=1)
+	counts = sim.result().get_counts(circ)
+	print(counts)
+
+# B - Quantum Tetrahedron
+if (x=="B" or x=="b"):
+	circ = QuantumCircuit(2,2) #creates 1 qubit and 1 classic register
+	circ.h(0); #hadamard on qubit[0]
+	circ.h(1); #hadamard on qubit[1]
+	circ.measure([0],[0])
+	circ.measure([1],[1])
+	backend_sim = Aer.get_backend('qasm_simulator')
+	sim = execute(circ, backend_sim, shots=1)
+	counts = sim.result().get_counts(circ)
+	print(counts)
+
+# C - Quantum Octahedron
+if (x=="C" or x=="c"):
+	circ = QuantumCircuit(3,3) #creates 1 qubit and 1 classic register
+	circ.h(0); #hadamard on qubit[0]
+	circ.h(1); #hadamard on qubit[1]
+	circ.h(2); #hadamard on qubit[2]
+	circ.measure([0],[0])
+	circ.measure([1],[1])
+	circ.measure([2],[2])
+	backend_sim = Aer.get_backend('qasm_simulator')
+	sim = execute(circ, backend_sim, shots=1)
+	counts = sim.result().get_counts(circ)
+	print(counts)
+
+# D - Quantum Gyroelongated Square Dipyramid
+if (x=="D" or x=="d"):
+	circ = QuantumCircuit(4,4) #creates 1 qubit and 1 classic register
+	circ.h(0); #hadamard on qubit[0]
+	circ.h(1); #hadamard on qubit[1]
+	circ.h(2); #hadamard on qubit[2]
+	circ.h(3); #hadamard on qubit[2]
+	circ.measure([0],[0])
+	circ.measure([1],[1])
+	circ.measure([2],[2])
+	circ.measure([3],[3])
+	backend_sim = Aer.get_backend('qasm_simulator')
+	sim = execute(circ, backend_sim, shots=1)
+	counts = sim.result().get_counts(circ)
+	print(counts)
